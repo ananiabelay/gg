@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rome Edits — Video Editor & Post-Production Specialist</title>
+  <style>
+    :root {
+      --bg-color: #0b0c10;
+      --card-bg: rgba(22, 27, 34, 0.75);
+      --card-border: rgba(255, 255, 255, 0.1);
+      --accent-purple: #7928ca;
+      --accent-cyan: #00dfd8;
+      --text-main: #f0f6fc;
+      --text-muted: #8b949e;
+      --reddit-color: #ff4500;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 5%;
+      border-bottom: 1px solid var(--card-border);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(11, 12, 16, 0.9);
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, var(--text-main), var(--accent-cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .social-link-top {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-main);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      padding: 0.5rem 1.2rem;
+      border-radius: 20px;
+      background: rgba(255, 69, 0, 0.15);
+      border: 1px solid rgba(255, 69, 0, 0.4);
+      transition: all 0.3s ease;
+    }
+
+    .social-link-top:hover {
+      background: rgba(255, 69, 0, 0.3);
+      transform: translateY(-2px);
+    }
+
+    .hero {
+      padding: 3.5rem 5% 1.5rem 5%;
+      text-align: center;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .hero h1 {
+      font-size: 2.8rem;
+      font-weight: 900;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+    }
+
+    .filters {
+      display: flex;
+      justify-content: center;
+      gap: 0.8rem;
+      margin: 2rem 5%;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      padding: 0.6rem 1.4rem;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .filter-btn.active, .filter-btn:hover {
+      color: var(--text-main);
+      border-color: var(--accent-cyan);
+      background: rgba(0, 223, 216, 0.1);
+    }
+
+    .portfolio-container {
+      padding: 0 5% 4rem 5%;
+      max-width: 1400px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .section-title {
+      font-size: 1.3rem;
+      margin: 2rem 0 1rem 0;
+      color: var(--text-main);
+      font-weight: 700;
+    }
+
+    .grid-longform {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .grid-shorts {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .video-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .video-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--accent-cyan);
+      box-shadow: 0 10px 20px rgba(0, 223, 216, 0.15);
+    }
+
+    .card-thumbnail {
+      width: 100%;
+      position: relative;
+      background: #000;
+      overflow: hidden;
+    }
+
+    .aspect-16-9 { padding-top: 56.25%; }
+    .aspect-9-16 { padding-top: 177.77%; }
+
+    .card-thumbnail img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.85;
+      transition: opacity 0.3s ease;
+    }
+
+    .video-card:hover .card-thumbnail img { opacity: 1; }
+
+    .play-icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 48px;
+      height: 48px;
+      background: rgba(0, 0, 0, 0.75);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 1.2rem;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .card-info {
+      padding: 1rem;
+    }
+
+    .card-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-main);
+      margin-bottom: 0.3rem;
+    }
+
+    .card-type {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--accent-cyan);
+    }
+
+    /* Modal Overlay & Player Container */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.92);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      padding: 1.5rem;
+    }
+
+    .modal-container {
+      position: relative;
+      width: 100%;
+      max-width: 900px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+
+    .modal-container.short-aspect {
+      max-width: 400px;
+    }
+
+    .close-modal-btn {
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: #fff;
+      padding: 0.5rem 1.2rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 0.9rem;
+      margin-bottom: 0.8rem;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .close-modal-btn:hover {
+      background: #e63946;
+      border-color: #e63946;
+    }
+
+    .modal-content {
+      width: 100%;
+      background: #000;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--card-border);
+      position: relative;
+    }
+
+    .iframe-container {
+      position: relative;
+      width: 100%;
+      background: #000;
+    }
+
+    .iframe-container.aspect-16-9 { padding-top: 56.25%; }
+    .iframe-container.aspect-9-16 { padding-top: 177.77%; }
+
+    .iframe-container iframe, .iframe-container #yt-player {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .error-fallback-box {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: rgba(15, 15, 20, 0.95);
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .error-fallback-box p {
+      color: var(--text-muted);
+      margin-bottom: 1.2rem;
+      font-size: 0.95rem;
+    }
+
+    .open-yt-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #ff0000;
+      color: #fff;
+      padding: 0.7rem 1.5rem;
+      border-radius: 25px;
+      font-weight: 700;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: transform 0.2s ease;
+    }
+
+    .open-yt-btn:hover {
+      transform: scale(1.05);
+    }
+
+    footer {
+      margin-top: auto;
+      border-top: 1px solid var(--card-border);
+      padding: 3rem 5%;
+      background: rgba(11, 12, 16, 0.95);
+      text-align: center;
+    }
+
+    .reddit-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      background: var(--reddit-color);
+      color: #fff;
+      padding: 0.8rem 1.8rem;
+      border-radius: 30px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: transform 0.2s ease;
+    }
+
+    .reddit-btn:hover {
+      transform: translateY(-2px);
+    }
+  </style>
+
+  <!-- Load YouTube IFrame Player API -->
+  <script src="https://www.youtube.com/iframe_api"></script>
+</head>
+<body>
+
+  <header>
+    <div class="logo">ROME EDITS</div>
+    <a href="https://www.reddit.com/user/Lombardoness/" target="_blank" class="social-link-top">
+      <span>Reddit Profile</span>
+    </a>
+  </header>
+
+  <section class="hero">
+    <h1>Post-Production & <span>Video Editing</span> Portfolio</h1>
+    <p>Visual storytelling, motion graphics, and short-form video edits.</p>
+  </section>
+
+  <div class="filters">
+    <button class="filter-btn active" onclick="filterCategory('all', event)">All Works</button>
+    <button class="filter-btn" onclick="filterCategory('long', event)">Long-Form Videos</button>
+    <button class="filter-btn" onclick="filterCategory('short', event)">Shorts & Reels</button>
+  </div>
+
+  <div class="portfolio-container">
+    <div id="longform-section">
+      <div class="section-title">Long-Form Projects (16:9)</div>
+      <div class="grid-longform" id="longform-grid"></div>
+    </div>
+
+    <div id="shorts-section">
+      <div class="section-title">Short-Form Content (9:16)</div>
+      <div class="grid-shorts" id="shorts-grid"></div>
+    </div>
+  </div>
+
+  <!-- Video Player Modal -->
+  <div class="modal-overlay" id="videoModal" onclick="closeModalOnOverlay(event)">
+    <div class="modal-container" id="modalContainer">
+      <button class="close-modal-btn" onclick="closeModal()">✕ Back to Portfolio</button>
+      <div class="modal-content">
+        <div class="iframe-container" id="iframeWrapper">
+          <div id="yt-player"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <h2>Let's Collaborate</h2>
+    <p style="color: var(--text-muted); margin: 0.5rem 0 1.5rem 0;">Reach out via Reddit to discuss video editing and post-production work.</p>
+    <a href="https://www.reddit.com/user/Lombardoness/" target="_blank" class="reddit-btn">
+      Connect on Reddit
+    </a>
+  </footer>
+
+  <script>
+    const rawVideoLinks = [
+      "https://youtu.be/93G1lWMkhEM?si=QYvbYMpLRQB2q5kt",
+      "https://youtu.be/aoDPUY5g4bY?si=qLKDsxLFLVAQL97C",
+      "https://youtu.be/QkLR0OE62Jk",
+      "https://youtu.be/wW8BHJUYjGM",
+      "https://youtu.be/KrawSnWi6qo",
+      "https://youtu.be/l3EsHeTjHDw",
+      "https://youtu.be/8Linb6PZNB8",
+      "https://youtube.com/shorts/R5GsRHcm5Hc?feature=share",
+      "https://youtube.com/shorts/43eNfoHPbbY?feature=share",
+      "https://youtube.com/shorts/3EjQ0c18lPs?feature=share",
+      "https://youtube.com/shorts/GOxgHFANoKg?feature=share",
+      "https://youtube.com/shorts/hqnIxARPx1Y?feature=share"
+    ];
+
+    let ytPlayer = null;
+
+    function parseYouTubeUrl(url) {
+      let videoId = "";
+      let isShort = false;
+
+      if (url.includes("shorts/")) {
+        videoId = url.split("shorts/")[1].split("?")[0];
+        isShort = true;
+      } else if (url.includes("youtu.be/")) {
+        videoId = url.split("youtu.be/")[1].split("?")[0];
+      } else if (url.includes("watch?v=")) {
+        videoId = url.split("watch?v=")[1].split("&")[0];
+      }
+
+      return {
+        id: videoId,
+        type: isShort ? "short" : "long",
+        rawUrl: url,
+        thumbnail: `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`
+      };
+    }
+
+    function renderVideos() {
+      const longGrid = document.getElementById("longform-grid");
+      const shortsGrid = document.getElementById("shorts-grid");
+
+      longGrid.innerHTML = "";
+      shortsGrid.innerHTML = "";
+
+      rawVideoLinks.forEach((link, index) => {
+        const video = parseYouTubeUrl(link);
+        if (!video.id) return;
+
+        const card = document.createElement("div");
+        card.className = "video-card";
+        card.onclick = () => openModal(video);
+
+        const aspectClass = video.type === "short" ? "aspect-9-16" : "aspect-16-9";
+        const labelText = video.type === "short" ? "Vertical Short" : "Horizontal Video";
+
+        card.innerHTML = `
+          <div class="card-thumbnail ${aspectClass}">
+            <img src="${video.thumbnail}" alt="Thumbnail" loading="lazy">
+            <div class="play-icon">&#9654;</div>
+          </div>
+          <div class="card-info">
+            <div class="card-title">Project #${index + 1}</div>
+            <div class="card-type">${labelText}</div>
+          </div>
+        `;
+
+        if (video.type === "long") {
+          longGrid.appendChild(card);
+        } else {
+          shortsGrid.appendChild(card);
+        }
+      });
+    }
+
+    function openModal(video) {
+      const modal = document.getElementById("videoModal");
+      const modalContainer = document.getElementById("modalContainer");
+      const iframeWrapper = document.getElementById("iframeWrapper");
+
+      iframeWrapper.className = "iframe-container " + (video.type === "short" ? "aspect-9-16" : "aspect-16-9");
+      modalContainer.className = "modal-container " + (video.type === "short" ? "short-aspect" : "");
+
+      iframeWrapper.innerHTML = '<div id="yt-player"></div>';
+
+      modal.style.display = "flex";
+
+      if (window.YT && window.YT.Player) {
+        ytPlayer = new YT.Player('yt-player', {
+          videoId: video.id,
+          playerVars: {
+            'autoplay': 1,
+            'rel': 0,
+            'modestbranding': 1,
+            'origin': window.location.origin
+          },
+          events: {
+            'onError': (e) => onPlayerError(e, video)
+          }
+        });
+      } else {
+        // Fallback standard iframe
+        iframeWrapper.innerHTML = `
+          <iframe src="https://www.youtube.com/embed/${video.id}?autoplay=1&rel=0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        `;
+      }
+    }
+
+    function onPlayerError(event, video) {
+      // Error codes 101, 150, or 153 indicate playback is restricted from embedding
+      const iframeWrapper = document.getElementById("iframeWrapper");
+      iframeWrapper.innerHTML = `
+        <div class="error-fallback-box">
+          <p>Playback on third-party sites is disabled by YouTube for this video.</p>
+          <a href="${video.rawUrl}" target="_blank" class="open-yt-btn">
+            Watch Video on YouTube ↗
+          </a>
+        </div>
+      `;
+    }
+
+    function closeModal() {
+      const modal = document.getElementById("videoModal");
+      const iframeWrapper = document.getElementById("iframeWrapper");
+      if (ytPlayer && ytPlayer.destroy) {
+        ytPlayer.destroy();
+        ytPlayer = null;
+      }
+      modal.style.display = "none";
+      iframeWrapper.innerHTML = '<div id="yt-player"></div>';
+    }
+
+    function closeModalOnOverlay(e) {
+      if (e.target.id === "videoModal") {
+        closeModal();
+      }
+    }
+
+    function filterCategory(type, event) {
+      document.querySelectorAll(".filter-btn").forEach(btn => btn.classList.remove("active"));
+      event.target.classList.add("active");
+
+      const longSection = document.getElementById("longform-section");
+      const shortsSection = document.getElementById("shorts-section");
+
+      if (type === "all") {
+        longSection.style.display = "block";
+        shortsSection.style.display = "block";
+      } else if (type === "long") {
+        longSection.style.display = "block";
+        shortsSection.style.display = "none";
+      } else if (type === "short") {
+        longSection.style.display = "none";
+        shortsSection.style.display = "block";
+      }
+    }
+
+    renderVideos();
+  </script>
+</body>
+</html>
