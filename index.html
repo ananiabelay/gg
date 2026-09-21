@@ -226,7 +226,6 @@
       color: var(--accent-cyan);
     }
 
-    /* Modal Overlay & Player Container */
     .modal-overlay {
       position: fixed;
       top: 0;
@@ -367,7 +366,6 @@
     }
   </style>
 
-  <!-- Load YouTube IFrame Player API -->
   <script src="https://www.youtube.com/iframe_api"></script>
 </head>
 <body>
@@ -424,6 +422,7 @@
 
   <script>
     const rawVideoLinks = [
+      "https://youtu.be/tsEtDpYCdyc", // TOP VIDEO
       "https://youtu.be/93G1lWMkhEM?si=QYvbYMpLRQB2q5kt",
       "https://youtu.be/aoDPUY5g4bY?si=qLKDsxLFLVAQL97C",
       "https://youtu.be/QkLR0OE62Jk",
@@ -524,7 +523,6 @@
           }
         });
       } else {
-        // Fallback standard iframe
         iframeWrapper.innerHTML = `
           <iframe src="https://www.youtube.com/embed/${video.id}?autoplay=1&rel=0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         `;
@@ -532,7 +530,6 @@
     }
 
     function onPlayerError(event, video) {
-      // Error codes 101, 150, or 153 indicate playback is restricted from embedding
       const iframeWrapper = document.getElementById("iframeWrapper");
       iframeWrapper.innerHTML = `
         <div class="error-fallback-box">
