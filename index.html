@@ -4,6 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Rome Edits — Video Editor & Post-Production Specialist</title>
+  <!-- Font Awesome for sleek brand and contact icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
   <style>
     :root {
       --bg-color: #0b0c10;
@@ -13,7 +16,12 @@
       --accent-cyan: #00dfd8;
       --text-main: #f0f6fc;
       --text-muted: #8b949e;
+      
+      /* Brand Color Tokens */
       --reddit-color: #ff4500;
+      --instagram-color: #e1306c;
+      --telegram-color: #0088cc;
+      --email-color: #00dfd8;
     }
 
     * {
@@ -43,6 +51,8 @@
       top: 0;
       z-index: 100;
       background: rgba(11, 12, 16, 0.9);
+      flex-wrap: wrap;
+      gap: 1rem;
     }
 
     .logo {
@@ -52,26 +62,65 @@
       background: linear-gradient(135deg, var(--text-main), var(--accent-cyan));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
     }
 
-    .social-link-top {
+    .header-socials {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    .social-btn {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
       color: var(--text-main);
       text-decoration: none;
       font-weight: 600;
-      font-size: 0.9rem;
-      padding: 0.5rem 1.2rem;
+      font-size: 0.85rem;
+      padding: 0.45rem 1rem;
       border-radius: 20px;
-      background: rgba(255, 69, 0, 0.15);
-      border: 1px solid rgba(255, 69, 0, 0.4);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--card-border);
       transition: all 0.3s ease;
     }
 
-    .social-link-top:hover {
-      background: rgba(255, 69, 0, 0.3);
+    .social-btn i {
+      font-size: 0.95rem;
+    }
+
+    .social-btn:hover {
       transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Specific Header Social Highlights */
+    .social-btn.reddit:hover {
+      background: rgba(255, 69, 0, 0.2);
+      border-color: var(--reddit-color);
+      color: #ff6a33;
+    }
+
+    .social-btn.instagram:hover {
+      background: rgba(225, 48, 108, 0.2);
+      border-color: var(--instagram-color);
+      color: #ff538d;
+    }
+
+    .social-btn.telegram:hover {
+      background: rgba(0, 136, 204, 0.2);
+      border-color: var(--telegram-color);
+      color: #33b5ff;
+    }
+
+    .social-btn.email:hover {
+      background: rgba(0, 223, 216, 0.2);
+      border-color: var(--email-color);
+      color: var(--accent-cyan);
     }
 
     .hero {
@@ -122,6 +171,7 @@
       color: var(--text-main);
       border-color: var(--accent-cyan);
       background: rgba(0, 223, 216, 0.1);
+      box-shadow: 0 0 15px rgba(0, 223, 216, 0.2);
     }
 
     .portfolio-container {
@@ -136,6 +186,13 @@
       margin: 2rem 0 1rem 0;
       color: var(--text-main);
       font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .section-title i {
+      color: var(--accent-cyan);
     }
 
     .grid-longform {
@@ -186,10 +243,13 @@
       height: 100%;
       object-fit: cover;
       opacity: 0.85;
-      transition: opacity 0.3s ease;
+      transition: opacity 0.3s ease, transform 0.3s ease;
     }
 
-    .video-card:hover .card-thumbnail img { opacity: 1; }
+    .video-card:hover .card-thumbnail img {
+      opacity: 1;
+      transform: scale(1.03);
+    }
 
     .play-icon {
       position: absolute;
@@ -204,8 +264,16 @@
       align-items: center;
       justify-content: center;
       color: #fff;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       border: 1px solid rgba(255, 255, 255, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .video-card:hover .play-icon {
+      background: var(--accent-cyan);
+      color: #000;
+      border-color: var(--accent-cyan);
+      transform: translate(-50%, -50%) scale(1.1);
     }
 
     .card-info {
@@ -224,6 +292,7 @@
       font-weight: 700;
       text-transform: uppercase;
       color: var(--accent-cyan);
+      letter-spacing: 0.5px;
     }
 
     .modal-overlay {
@@ -250,7 +319,7 @@
     }
 
     .modal-container.short-aspect {
-      max-width: 400px;
+      max-width: 380px;
     }
 
     .close-modal-btn {
@@ -343,26 +412,72 @@
     footer {
       margin-top: auto;
       border-top: 1px solid var(--card-border);
-      padding: 3rem 5%;
+      padding: 3.5rem 5%;
       background: rgba(11, 12, 16, 0.95);
       text-align: center;
     }
 
-    .reddit-btn {
+    footer h2 {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-social-grid {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+
+    .footer-btn {
       display: inline-flex;
       align-items: center;
-      gap: 0.8rem;
-      background: var(--reddit-color);
+      gap: 0.6rem;
       color: #fff;
-      padding: 0.8rem 1.8rem;
+      padding: 0.8rem 1.6rem;
       border-radius: 30px;
       font-weight: 700;
       text-decoration: none;
-      transition: transform 0.2s ease;
+      font-size: 0.95rem;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
-    .reddit-btn:hover {
-      transform: translateY(-2px);
+    .footer-btn:hover {
+      transform: translateY(-3px);
+    }
+
+    .footer-btn.telegram {
+      background: var(--telegram-color);
+      box-shadow: 0 4px 15px rgba(0, 136, 204, 0.3);
+    }
+
+    .footer-btn.instagram {
+      background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+      box-shadow: 0 4px 15px rgba(225, 48, 108, 0.3);
+    }
+
+    .footer-btn.email {
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+      box-shadow: 0 4px 15px rgba(0, 223, 216, 0.3);
+    }
+
+    .footer-btn.reddit {
+      background: var(--reddit-color);
+      box-shadow: 0 4px 15px rgba(255, 69, 0, 0.3);
+    }
+
+    @media (max-width: 600px) {
+      header {
+        justify-content: center;
+      }
+      .header-socials {
+        justify-content: center;
+      }
+      .hero h1 {
+        font-size: 2.2rem;
+      }
     }
   </style>
 
@@ -371,15 +486,33 @@
 <body>
 
   <header>
-    <div class="logo">ROME EDITS</div>
-    <a href="https://www.reddit.com/user/Lombardoness/" target="_blank" class="social-link-top">
-      <span>Reddit Profile</span>
-    </a>
+    <div class="logo">
+      <i class="fa-solid font-awesome-logo-full"></i>
+      <span>ROME EDITS</span>
+    </div>
+    <div class="header-socials">
+      <a href="https://t.me/romeovid" target="_blank" class="social-btn telegram" title="Telegram">
+        <i class="fa-brands fa-telegram"></i>
+        <span>Telegram</span>
+      </a>
+      <a href="https://www.instagram.com/romeo_vid_edits/" target="_blank" class="social-btn instagram" title="Instagram">
+        <i class="fa-brands fa-instagram"></i>
+        <span>Instagram</span>
+      </a>
+      <a href="mailto:ananiabelaynur@gmail.com" class="social-btn email" title="Email">
+        <i class="fa-solid fa-envelope"></i>
+        <span>Email</span>
+      </a>
+      <a href="https://www.reddit.com/user/Lombardoness/" target="_blank" class="social-btn reddit" title="Reddit Profile">
+        <i class="fa-brands fa-reddit-alien"></i>
+        <span>Reddit</span>
+      </a>
+    </div>
   </header>
 
   <section class="hero">
     <h1>Post-Production & <span>Video Editing</span> Portfolio</h1>
-    <p>Visual storytelling, motion graphics, and short-form video edits.</p>
+    <p>Visual storytelling, motion graphics, color grading, and short-form video edits.</p>
   </section>
 
   <div class="filters">
@@ -390,17 +523,20 @@
 
   <div class="portfolio-container">
     <div id="longform-section">
-      <div class="section-title">Long-Form Projects (16:9)</div>
+      <div class="section-title">
+        <i class="fa-solid fa-desktop"></i> Long-Form Projects (16:9)
+      </div>
       <div class="grid-longform" id="longform-grid"></div>
     </div>
 
     <div id="shorts-section">
-      <div class="section-title">Short-Form Content (9:16)</div>
+      <div class="section-title">
+        <i class="fa-solid fa-mobile-screen-button"></i> Shorts & Reels (9:16)
+      </div>
       <div class="grid-shorts" id="shorts-grid"></div>
     </div>
   </div>
 
-  <!-- Video Player Modal -->
   <div class="modal-overlay" id="videoModal" onclick="closeModalOnOverlay(event)">
     <div class="modal-container" id="modalContainer">
       <button class="close-modal-btn" onclick="closeModal()">✕ Back to Portfolio</button>
@@ -414,15 +550,27 @@
 
   <footer>
     <h2>Let's Collaborate</h2>
-    <p style="color: var(--text-muted); margin: 0.5rem 0 1.5rem 0;">Reach out via Reddit to discuss video editing and post-production work.</p>
-    <a href="https://www.reddit.com/user/Lombardoness/" target="_blank" class="reddit-btn">
-      Connect on Reddit
-    </a>
+    <p style="color: var(--text-muted); margin: 0.5rem 0 1.5rem 0;">Ready to elevate your content? Reach out directly via any platform below.</p>
+    
+    <div class="footer-social-grid">
+      <a href="https://t.me/romeovid" target="_blank" class="footer-btn telegram">
+        <i class="fa-brands fa-telegram"></i> Telegram (@romeovid)
+      </a>
+      <a href="https://www.instagram.com/romeo_vid_edits/" target="_blank" class="footer-btn instagram">
+        <i class="fa-brands fa-instagram"></i> Instagram (@romeo_vid_edits)
+      </a>
+      <a href="mailto:ananiabelaynur@gmail.com" class="footer-btn email">
+        <i class="fa-solid fa-envelope"></i> Send Email
+      </a>
+      <a href="https://www.reddit.com/user/Lombardoness/" target="_blank" class="footer-btn reddit">
+        <i class="fa-brands fa-reddit-alien"></i> Reddit Profile
+      </a>
+    </div>
   </footer>
 
   <script>
     const rawVideoLinks = [
-      "https://youtu.be/tsEtDpYCdyc", // TOP VIDEO
+      "https://youtu.be/tsEtDpYCdyc",
       "https://youtu.be/93G1lWMkhEM?si=QYvbYMpLRQB2q5kt",
       "https://youtu.be/aoDPUY5g4bY?si=qLKDsxLFLVAQL97C",
       "https://youtu.be/QkLR0OE62Jk",
@@ -481,7 +629,7 @@
         card.innerHTML = `
           <div class="card-thumbnail ${aspectClass}">
             <img src="${video.thumbnail}" alt="Thumbnail" loading="lazy">
-            <div class="play-icon">&#9654;</div>
+            <div class="play-icon"><i class="fa-solid fa-play"></i></div>
           </div>
           <div class="card-info">
             <div class="card-title">Project #${index + 1}</div>
@@ -535,7 +683,7 @@
         <div class="error-fallback-box">
           <p>Playback on third-party sites is disabled by YouTube for this video.</p>
           <a href="${video.rawUrl}" target="_blank" class="open-yt-btn">
-            Watch Video on YouTube ↗
+            <i class="fa-brands fa-youtube"></i> Watch Video on YouTube
           </a>
         </div>
       `;
@@ -577,7 +725,10 @@
       }
     }
 
-    renderVideos();
+    // Initialize gallery on load
+    window.onload = function() {
+      renderVideos();
+    };
   </script>
 </body>
 </html>
