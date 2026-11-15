@@ -22,6 +22,7 @@
       --instagram-color: #e1306c;
       --telegram-color: #0088cc;
       --email-color: #00dfd8;
+      --youtube-color: #ff0000;
     }
 
     * {
@@ -99,6 +100,12 @@
     }
 
     /* Specific Header Social Highlights */
+    .social-btn.youtube:hover {
+      background: rgba(255, 0, 0, 0.2);
+      border-color: var(--youtube-color);
+      color: #ff4d4d;
+    }
+
     .social-btn.reddit:hover {
       background: rgba(255, 69, 0, 0.2);
       border-color: var(--reddit-color);
@@ -146,6 +153,71 @@
     .hero p {
       color: var(--text-muted);
       font-size: 1.1rem;
+      margin-bottom: 1.8rem;
+    }
+
+    /* Hero Stats & Channel Highlight Pill */
+    .hero-stats-bar {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.2rem;
+      background: var(--card-bg);
+      border: 1px solid rgba(0, 223, 216, 0.35);
+      padding: 0.7rem 1.6rem;
+      border-radius: 50px;
+      box-shadow: 0 8px 25px rgba(0, 223, 216, 0.12);
+      flex-wrap: wrap;
+    }
+
+    .stat-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .stat-badge i {
+      color: var(--youtube-color);
+      font-size: 1.25rem;
+    }
+
+    .stat-number {
+      background: linear-gradient(135deg, #fff, var(--accent-cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 900;
+      font-size: 1.15rem;
+    }
+
+    .stat-divider {
+      width: 1px;
+      height: 20px;
+      background: var(--card-border);
+    }
+
+    .channel-pill-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      color: var(--accent-cyan);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 0.35rem 0.9rem;
+      border-radius: 20px;
+      background: rgba(0, 223, 216, 0.1);
+      border: 1px solid rgba(0, 223, 216, 0.3);
+      transition: all 0.25s ease;
+    }
+
+    .channel-pill-link:hover {
+      background: var(--youtube-color);
+      border-color: var(--youtube-color);
+      color: #fff;
+      transform: translateY(-1px);
     }
 
     .filters {
@@ -448,6 +520,11 @@
       transform: translateY(-3px);
     }
 
+    .footer-btn.youtube {
+      background: var(--youtube-color);
+      box-shadow: 0 4px 15px rgba(255, 0, 0, 0.3);
+    }
+
     .footer-btn.telegram {
       background: var(--telegram-color);
       box-shadow: 0 4px 15px rgba(0, 136, 204, 0.3);
@@ -478,6 +555,14 @@
       .hero h1 {
         font-size: 2.2rem;
       }
+      .stat-divider {
+        display: none;
+      }
+      .hero-stats-bar {
+        border-radius: 20px;
+        padding: 1rem;
+        gap: 0.8rem;
+      }
     }
   </style>
 
@@ -487,10 +572,14 @@
 
   <header>
     <div class="logo">
-      <i class="fa-solid font-awesome-logo-full"></i>
+      <i class="fa-solid fa-film"></i>
       <span>ROME EDITS</span>
     </div>
     <div class="header-socials">
+      <a href="https://www.youtube.com/@MR_BOMBASTIC-j3g" target="_blank" class="social-btn youtube" title="YouTube Channel">
+        <i class="fa-brands fa-youtube"></i>
+        <span>YouTube</span>
+      </a>
       <a href="https://t.me/romeovid" target="_blank" class="social-btn telegram" title="Telegram">
         <i class="fa-brands fa-telegram"></i>
         <span>Telegram</span>
@@ -513,6 +602,18 @@
   <section class="hero">
     <h1>Post-Production & <span>Video Editing</span> Portfolio</h1>
     <p>Visual storytelling, motion graphics, color grading, and short-form video edits.</p>
+    
+    <div class="hero-stats-bar">
+      <div class="stat-badge">
+        <i class="fa-brands fa-youtube"></i>
+        <span><span class="stat-number">175,000+</span> Total YouTube Views</span>
+      </div>
+      <div class="stat-divider"></div>
+      <a href="https://www.youtube.com/@MR_BOMBASTIC-j3g" target="_blank" class="channel-pill-link">
+        <span>Visit Channel (@MR_BOMBASTIC-j3g)</span>
+        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+      </a>
+    </div>
   </section>
 
   <div class="filters">
@@ -553,6 +654,9 @@
     <p style="color: var(--text-muted); margin: 0.5rem 0 1.5rem 0;">Ready to elevate your content? Reach out directly via any platform below.</p>
     
     <div class="footer-social-grid">
+      <a href="https://www.youtube.com/@MR_BOMBASTIC-j3g" target="_blank" class="footer-btn youtube">
+        <i class="fa-brands fa-youtube"></i> YouTube (@MR_BOMBASTIC-j3g)
+      </a>
       <a href="https://t.me/romeovid" target="_blank" class="footer-btn telegram">
         <i class="fa-brands fa-telegram"></i> Telegram (@romeovid)
       </a>
@@ -562,7 +666,7 @@
       <a href="mailto:ananiabelaynur@gmail.com" class="footer-btn email">
         <i class="fa-solid fa-envelope"></i> Send Email
       </a>
-      <a href="https://www.reddit.com/user/Ancient_Skill_5875//" target="_blank" class="footer-btn reddit">
+      <a href="https://www.reddit.com/user/Ancient_Skill_5875/" target="_blank" class="footer-btn reddit">
         <i class="fa-brands fa-reddit-alien"></i> Reddit Profile
       </a>
     </div>
@@ -570,7 +674,6 @@
 
   <script>
     const rawVideoLinks = [
-     
       "https://youtu.be/VAVXN4ySREo?si=-wTJKqrsDbEs9q7T",
       "https://youtu.be/tsEtDpYCdyc",
       "https://youtu.be/93G1lWMkhEM?si=QYvbYMpLRQB2q5kt",
@@ -580,7 +683,8 @@
       "https://youtu.be/KrawSnWi6qo",
       "https://youtu.be/l3EsHeTjHDw",
       "https://youtu.be/8Linb6PZNB8",
-       "https://youtu.be/jK8I3hePUTs?si=c-V66XlKiWjCK8p8",
+      "https://youtu.be/jK8I3hePUTs?si=c-V66XlKiWjCK8p8",
+      "https://www.youtube.com/shorts/h0QcUrvIJfI",
       "https://youtube.com/shorts/R5GsRHcm5Hc?feature=share",
       "https://youtube.com/shorts/43eNfoHPbbY?feature=share",
       "https://youtube.com/shorts/3EjQ0c18lPs?feature=share",
