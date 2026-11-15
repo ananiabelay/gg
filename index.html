@@ -606,7 +606,7 @@
     <div class="hero-stats-bar">
       <div class="stat-badge">
         <i class="fa-brands fa-youtube"></i>
-        <span><span class="stat-number">175,000+</span> Total YouTube Views</span>
+        <span><span class="stat-number" id="viewCounter">0</span>+ Total YouTube Views</span>
       </div>
       <div class="stat-divider"></div>
       <a href="https://www.youtube.com/@MR_BOMBASTIC-j3g" target="_blank" class="channel-pill-link">
@@ -753,6 +753,35 @@
       });
     }
 
+    // Smooth count-up animation function
+    function animateViewCounter() {
+      const counterEl = document.getElementById("viewCounter");
+      if (!counterEl) return;
+      
+      const target = 175000;
+      const duration = 2200; // Animation duration in milliseconds (2.2s)
+      let startTimestamp = null;
+
+      const step = (timestamp) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        
+        // Easing function for a smooth deceleration towards 175,000
+        const easeProgress = 1 - Math.pow(1 - progress, 3);
+        const current = Math.floor(easeProgress * target);
+        
+        counterEl.textContent = current.toLocaleString();
+
+        if (progress < 1) {
+          window.requestAnimationFrame(step);
+        } else {
+          counterEl.textContent = target.toLocaleString();
+        }
+      };
+
+      window.requestAnimationFrame(step);
+    }
+
     function openModal(video) {
       const modal = document.getElementById("videoModal");
       const modalContainer = document.getElementById("modalContainer");
@@ -833,9 +862,10 @@
       }
     }
 
-    // Initialize gallery on load
+    // Initialize gallery and view counter on load
     window.onload = function() {
       renderVideos();
+      animateViewCounter();
     };
   </script>
 </body>
